@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<a href="/logout">Logout</a>
+<html lang="en" dir="ltr">
+<h2>Welcome, {{loggedin.alias}}!</h2>
+<h5> {{friendNum.count}} people friended you!</h5>
+
+<fieldset>
+    {% for user in friendNum %}
+    <table>
+        {{user.name}} friended you {{user.num_friends}} times.
+    </table>
+    {% endfor %}
+</fieldset>
+
+<body>
+
+    <fieldset>
+        <table>
+            <h4>People you may want to friend:</h4>
+            <tr>
+                <th>Name***</th>
+                <th>Alias***</th>
+                <th>Email***</th>
+                <th>Friend Count***</th>
+                <th>Action***</th>
+            </tr>
+            {% for user in users%}
+            <tr>
+                <td>
+                    {{user.name}}
+                </td>
+                <td>
+                    {{user.alias}}
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td>
+                    {{user.gotfriended.all.count}}
+                </td>
+
+                <!-- <td>
+                    <form action='/createPoke' method="POST">
+                        {% csrf_token %}
+                        <input type="submit" name='dash' value="POKE">
+                    </form>
+                </td> -->
+                <td>
+                <form action="/createFriend" name='dash' method="POST">
+                    {% csrf_token %}
+                    <select name="dash">
+                        {% for user in users %}
+                        <option value="{{user.name}}">{{user.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" name='friend' value="FRIEND">
+                </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </fieldset>
+</body>
+
+</html>
